@@ -24,6 +24,25 @@ Test it:
 docker run hello-world
 ```
 
+## Create an image
+
+1. Create a file named **Dockerfile**.
+2. Write the code. For example:
+```
+# syntax=docker/dockerfile:1
+
+FROM ubuntu:22.04
+COPY . /app
+RUN make /app
+CMD python /app/app.py
+```
+3. Build it with ``docker build .``
+4. Check out the ID of the image with ``docker images``
+5. Run it with ``docker run <IMAGE_ID>``
+6. When you are done, close it with ``docker stop <IMAGE_ID>``
+
+Mind you: This is a simple and quick way to create an image to understand how Docker works. This doesn't have a port exit to reach out, nor persistance.
+
 ## Basic commands
 
 ```
