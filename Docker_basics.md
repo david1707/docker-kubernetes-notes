@@ -43,6 +43,17 @@ CMD python /app/app.py
 
 Mind you: This is a simple and quick way to create an image to understand how Docker works. This doesn't have a port exit to reach out, nor persistance.
 
+## How to publish an image
+How to build, and then publish, an image to https://hub.docker.com/
+
+1. Make sure you are logged in with ``docker login``
+2. After your are logged in, check again with ``docker login``. You should see the "Login Succeeded" message.
+3. Build your image with `docker build -t <IMAGE_NAME> .`
+4. Tag it with your username `docker tag <IMAGE_NAME> <DOCKERHUB_USER_NAME>/<IMAGE_NAME>:v1`
+5. Push it to the Docker Hub with `docker push david1707/f<IMAGE_NAME>:v1`
+6. Now you can check your newly updated image. For example, mine is https://hub.docker.com/repository/docker/david1707/first_dockerized_code/general
+
+
 ## Basic commands
 
 ```
