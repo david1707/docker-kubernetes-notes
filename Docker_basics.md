@@ -66,11 +66,14 @@ docker run <IMAGE_NAME>
 # Download a specific version
 docker run <IMAGE_NAME>:<VERSION>
 
-# Execute a container in the background
+# Restart a stopped container
+docker start <CONTAINER_ID>
+
+# Execute a container in the background (Detached to the container: You can see the logs)
 docker run -d <IMAGE_NAME>
 
-# Bring a container from the background to the foreground
-docker run attach <ID>
+# Bring a container from the background to the foreground (Attached to the container: You can see the logs)
+docker attach <IMAGE_NAME>
 
 # Execute a command
 docker run ubuntu cat /etc/*release*
