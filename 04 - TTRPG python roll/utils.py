@@ -5,8 +5,8 @@ def print_options():
     # Use a proper menu with visuals
 
     while True:
-        user_input = input('What option do you want to roll?\n1. 6 rolls, roll 4d6 drop lower\n2. 6 rolls, roll 3d6\n'  
-                    + '3. X rolls, roll 4d6 drop lower\n4. X rolls, roll 3d6\n0. Exit\n')
+        user_input = input('What do you want to roll?\n1. 6 rolls, roll 4d6 drop lower.\n2. 6 rolls, roll 3d6.\n'  
+                    + '3. X rolls, roll 4d6 drop lower.\n4. X rolls, roll 3d6.\n0. Exit.\n')
         if int(user_input) not in [1,2,3,4,0]:
             print('Please, use one of the options in the menu.')
         elif user_input.isdigit():
