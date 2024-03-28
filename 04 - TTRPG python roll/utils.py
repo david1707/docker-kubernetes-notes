@@ -18,21 +18,21 @@ def check_option():
     rolls = []
     match option:
         case 1:
-            print('You selected: 6 rolls, roll 4d6 drop lower')
+            print('You selected: 6 rolls, roll 4d6 drop lower.')
             rolls = calculate_4d6_drop(6)
 
         case 2:
-            print('You selected: 6 rolls, roll 3d6')
+            print('You selected: 6 rolls, roll 3d6.')
             rolls = calculate_3d6(6)
 
         case 3:
-            print('You selected: X rolls, roll 4d6 drop lower')
+            print('You selected: X rolls, roll 4d6 drop lower.')
             # Sanitise this input
             rolls_n_times = int(input('How many rolls do you want to have?\n'))
             rolls = calculate_4d6_drop(rolls_n_times)
 
         case 4:
-            print('You selected: X rolls, roll 3d6')
+            print('You selected: X rolls, roll 3d6.')
             # Sanitise this input
             rolls_n_times = int(input('How many rolls do you want to have?\n'))
             rolls = calculate_3d6(rolls_n_times)
@@ -41,7 +41,11 @@ def check_option():
             print('Bye :)')
             exit()
 
-    print(rolls)
+        case ValueError:
+            print('Please, use one of the options in the menu.')
+
+    if(rolls):
+        print_rolls(rolls)
     
 
 def calculate_4d6_drop(roll_n_times):
@@ -75,3 +79,8 @@ def roll3d6():
         roll_value.append(ri(1,6))
 
     return roll_value
+
+
+def print_rolls(rolls):
+    for roll in rolls:
+        print(f'{str(sum(roll)).rjust(2, "0")} = {roll}')
