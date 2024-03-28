@@ -1,17 +1,19 @@
 from random import randint as ri
 
 def print_options():
-    # Add Try-except
     global option
     # Use a proper menu with visuals
-    option = int(input(('''
-What option do you want to roll?
-    1. 6 rolls, roll 4d6 drop lower
-    2. 6 rolls, roll 3d6
-    3. X rolls, roll 4d6 drop lower
-    4. X rolls, roll 3d6
-    0. Exit
-''')))
+
+    while True:
+        user_input = input('What option do you want to roll?\n1. 6 rolls, roll 4d6 drop lower\n2. 6 rolls, roll 3d6\n'  
+                    + '3. X rolls, roll 4d6 drop lower\n4. X rolls, roll 3d6\n0. Exit\n')
+        if int(user_input) not in [1,2,3,4,0]:
+            print('Please, use one of the options in the menu.')
+        elif user_input.isdigit():
+            option = int(user_input)
+            break
+        else:
+            print("Please, enter a valid integer.")   
 
 
 def check_option():
@@ -41,13 +43,12 @@ def check_option():
             print('Bye :)')
             exit()
 
-        case ValueError:
-            print('Please, use one of the options in the menu.')
 
     if(rolls):
         print_rolls(rolls)
     
 
+## Roll helper functions
 def calculate_4d6_drop(roll_n_times):
     rolled_values = []
     for _ in range(roll_n_times):
@@ -81,6 +82,9 @@ def roll3d6():
     return roll_value
 
 
+## Print helper functions
 def print_rolls(rolls):
     for roll in rolls:
         print(f'{str(sum(roll)).rjust(2, "0")} = {roll}')
+    total = sum( sum(x) if isinstance(x, list) else x for x in rolls)
+    print(f'Total: {total}\n')
