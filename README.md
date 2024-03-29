@@ -6,3 +6,5 @@ For example, in ``01 - First test with Docker`` you will find the NodeJS code I 
 
 ## Images
 * 01 - First test with Docker - [First Dockerized Code](https://hub.docker.com/repository/docker/david1707/first_dockerized_code/general)
+* 02 - Dummy nodejs app - [Dummy nodejs app](https://hub.docker.com/repository/docker/david1707/dummy_nodejs_app/general)
+* 03 - Interactive Python script - [Interactive Python script](https://hub.docker.com/repository/docker/david1707/interactive_python_script/general)
