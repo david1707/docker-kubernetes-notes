@@ -14,9 +14,9 @@ sudo sh ./get-docker.sh
 sudo docker version
 
 # Don't get asked for sudo permissions
-sudo chmod 666 /var/run/docker.sock
-```
+sudo chmod 644 /var/run/docker.sock
 
+```
 
 Test it:
 
@@ -43,13 +43,14 @@ CMD python /app/app.py
 
 Mind you: This is a simple and quick way to create an image to understand how Docker works. This doesn't have a port exit to reach out, nor persistance.
 
+
 ## How to publish an image
 How to build, and then publish, an image to https://hub.docker.com/
 
 1. Make sure you are logged in with ``docker login``
 2. After your are logged in, check again with ``docker login``. You should see the "Login Succeeded" message.
-3. Build your image with `docker build -t <DOCKERHUB_USER_NAME>/<IMAGE_NAME>:v1 .`
-4. Push it to the Docker Hub with `docker push <DOCKERHUB_USER_NAME>/<IMAGE_NAME>:v1 `
+3. Build your image with `docker build -t <DOCKERHUB_USER_NAME>/<IMAGE_NAME>:<TAG> .`
+4. Push it to the Docker Hub with `docker push <DOCKERHUB_USER_NAME>/<IMAGE_NAME>:<TAG> `
 5. Now you can check your newly updated image. For example, mine is https://hub.docker.com/repository/docker/david1707/first_dockerized_code/general
 
 
@@ -64,6 +65,12 @@ docker run <IMAGE_NAME>
 
 # Download a specific version
 docker run <IMAGE_NAME>:<VERSION>
+
+# Assign a name to the container on start
+docker run --name <NEW_CONTAINER_NAME> <IMAGE_NAME> 
+
+# Remove a container after it is stopped
+docker run --rm <IMAGE_NAME>
 
 # Restart a stopped container
 docker start <CONTAINER_ID>
@@ -109,16 +116,34 @@ docker history <IMAGE_NAME>
 # Stop a container
 docker stop <IMAGE_NAME_OR_ID>
 
-# Remove permanently a container 
-docker rm <IMAGE_NAME_OR_ID>
-
-# Remove permanently an image that isn't being used
-docker rmi <IMAGE_NAME>
-
 # Build an image from a Dockerfile
-docker build . -t <NAME>
+docker build . -t <NAME>:<TAG>
 
 # Environment variables
 docker run -e <VARIABLE>=<VALUE> <IMAGE_NAME>
 docker run -e APP_COLOR=blue simple-webapp-color
+
+# Copy files
+docker cp <FOLDER/FILE_PATH> <CONTAINER_ID>:<DESTINATION_PATH> 
+
+
+### Remove containers/images
+
+# Remove permanently a container 
+docker rm <IMAGE_NAME_OR_ID>
+
+# Remove all stopped containers
+docker container prune
+
+# Remove all containers
+docker rm $(docker ps -aq)
+
+# Remove permanently an image that isn't being used
+docker rmi <IMAGE_NAME>
+
+# Remove all unused images
+docker image prune
+
+# Remove all images
+docker image prune -a
 ```
