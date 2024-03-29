@@ -48,10 +48,9 @@ How to build, and then publish, an image to https://hub.docker.com/
 
 1. Make sure you are logged in with ``docker login``
 2. After your are logged in, check again with ``docker login``. You should see the "Login Succeeded" message.
-3. Build your image with `docker build -t <IMAGE_NAME> .`
-4. Tag it with your username `docker tag <IMAGE_NAME> <DOCKERHUB_USER_NAME>/<IMAGE_NAME>:v1`
-5. Push it to the Docker Hub with `docker push david1707/<IMAGE_NAME>:v1`
-6. Now you can check your newly updated image. For example, mine is https://hub.docker.com/repository/docker/david1707/first_dockerized_code/general
+3. Build your image with `docker build -t <DOCKERHUB_USER_NAME>/<IMAGE_NAME>:v1 .`
+4. Push it to the Docker Hub with `docker push <DOCKERHUB_USER_NAME>/<IMAGE_NAME>:v1 `
+5. Now you can check your newly updated image. For example, mine is https://hub.docker.com/repository/docker/david1707/first_dockerized_code/general
 
 
 ## Basic commands
