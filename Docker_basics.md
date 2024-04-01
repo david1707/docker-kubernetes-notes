@@ -119,17 +119,21 @@ docker stop <IMAGE_NAME_OR_ID>
 # Build an image from a Dockerfile
 docker build . -t <NAME>:<TAG>
 
-# Environment variables
-docker run -e <VARIABLE>=<VALUE> <IMAGE_NAME>
-docker run -e APP_COLOR=blue simple-webapp-color
-
 # Copy files
-docker cp <FOLDER/FILE_PATH> <CONTAINER_ID>:<DESTINATION_PATH> 
+docker cp <FOLDER/FILE_PATH> <CONTAINER_ID>:<DESTINATION_PATH>
 
+# Environment values
+docker run <OPTIONS> -e <KEY>=<VALUE>
+docker run <OPTIONS> -e PORT=8000
 
-### Remove containers/images
+# Argument values
+docker build <OPTIONS> --build-arg <ARG_VALUE> .
+docker build <OPTIONS> --build-arg DEFAULT_PORT=8000 .
+```
 
-# Remove permanently a container 
+# Remove containers/images
+```
+# Remove permanently a container
 docker rm <IMAGE_NAME_OR_ID>
 
 # Remove all stopped containers
@@ -147,3 +151,35 @@ docker image prune
 # Remove all images
 docker image prune -a
 ```
+
+### Volumes 
+```
+# Anonymous volume
+docker run <OPTIONS> -v <CONTAINER_PATH> <IMAGE_NAME>
+docker run <OPTIONS> -v /app/feedback <IMAGE_NAME>
+
+# Create a Named (persistent) volume
+docker run <OPTIONS> -v <NAME>:<CONTAINER_PATH> <IMAGE_NAME>
+docker run <OPTIONS> -v feedback:/app/feedback <IMAGE_NAME>
+
+# Create a Bind Mount (managed by you) 
+docker run <OPTIONS> -v <NAME>:<CONTAINER_PATH> -v <HOSTMACHINE_ABSOLUTE_PATH>:<CONTAINER_WORKDIR> <IMAGE_NAME>
+docker run <OPTIONS> -v feedback:/app/feedback -v '/home/david/Documents/docker-kubernetes-notes/05 - Data volumes/:/app' <IMAGE_NAME>
+
+# Read only volumes
+docker run <OPTIONS> -v <HOSTMACHINE_ABSOLUTE_PATH>:<CONTAINER_WORKDIR>:ro <IMAGE_NAME>
+
+# List existing volumes
+docker volume ls
+
+## Overview
+# Anonymous volume
+docker run -v /app/data
+
+# Named volume
+docker run -v data:/app/data
+
+# Bind mount
+docker run -v /local/path:/app/data
+```
+
