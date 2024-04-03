@@ -24,36 +24,6 @@ Test it:
 docker run hello-world
 ```
 
-## Create an image
-
-1. Create a file named **Dockerfile**.
-2. Write the code. For example:
-```
-# syntax=docker/dockerfile:1
-
-FROM ubuntu:22.04
-COPY . /app
-RUN make /app
-CMD python /app/app.py
-```
-3. Build it with ``docker build .``
-4. Check out the ID of the image with ``docker images``
-5. Run it with ``docker run <IMAGE_ID>``
-6. When you are done, close it with ``docker stop <IMAGE_ID>``
-
-Mind you: This is a simple and quick way to create an image to understand how Docker works. This doesn't have a port exit to reach out, nor persistance.
-
-
-## How to publish an image
-How to build, and then publish, an image to https://hub.docker.com/
-
-1. Make sure you are logged in with ``docker login``
-2. After your are logged in, check again with ``docker login``. You should see the "Login Succeeded" message.
-3. Build your image with `docker build -t <DOCKERHUB_USER_NAME>/<IMAGE_NAME>:<TAG> .`
-4. Push it to the Docker Hub with `docker push <DOCKERHUB_USER_NAME>/<IMAGE_NAME>:<TAG> `
-5. Now you can check your newly updated image. For example, mine is https://hub.docker.com/repository/docker/david1707/first_dockerized_code/general
-
-
 ## Basic commands
 
 ```
@@ -105,7 +75,7 @@ docker run -p <PORT_LOCAL>:<PORT_DEFAULT> --link <IMAGE_NAME_TO_LINK>:<IMAGE_NAM
 docker run -p 5000:80 --link redis:redis voting-app
 
 # Get details from an image or container in JSON format
-docker inspect <NAME_OR_ID>
+docker container inspect <NAME_OR_ID>
 
 # Get logs from a container running in the background
 docker logs <NAME_OR_ID>
@@ -183,3 +153,52 @@ docker run -v data:/app/data
 docker run -v /local/path:/app/data
 ```
 
+### Networks
+```
+# Create a network
+docker network create <NETWORK_NAME>
+
+# Inspect existing networks
+docker network ls
+
+# Start an image using a network
+docker run <OPTIONS> --network <NETWORK_NAME> <IMAGE_NAME>
+docker run -d --name mongodb --network favourites-net mongo
+```
+# How to...
+
+## Create an image
+
+1. Create a file named **Dockerfile**.
+2. Write the code. For example:
+```
+# syntax=docker/dockerfile:1
+
+FROM ubuntu:22.04
+COPY . /app
+RUN make /app
+CMD python /app/app.py
+```
+3. Build it with ``docker build .``
+4. Check out the ID of the image with ``docker images``
+5. Run it with ``docker run <IMAGE_ID>``
+6. When you are done, close it with ``docker stop <IMAGE_ID>``
+
+Mind you: This is a simple and quick way to create an image to understand how Docker works. This doesn't have a port exit to reach out, nor persistance.
+
+
+## How to publish an image
+How to build, and then publish, an image to https://hub.docker.com/
+
+1. Make sure you are logged in with ``docker login``
+2. After your are logged in, check again with ``docker login``. You should see the "Login Succeeded" message.
+3. Build your image with `docker build -t <DOCKERHUB_USER_NAME>/<IMAGE_NAME>:<TAG> .`
+4. Push it to the Docker Hub with `docker push <DOCKERHUB_USER_NAME>/<IMAGE_NAME>:<TAG> `
+5. Now you can check your newly updated image. For example, mine is https://hub.docker.com/repository/docker/david1707/first_dockerized_code/general
+
+## How to connect containers
+1. Create a new network with ``docker network create <NETWORK_NAME>``.
+2. Start an image, using the network ``docker run <OPTIONS> --network <NETWORK_NAME> <IMAGE_NAME>``.
+3. Now, you can replace its name to use it as a domain ``mongoose.connect('mongodb://<NETWORK_NAME>:27017/my_database')``.
+4. Rebuild the Docker image, as we have changed the code.
+5. Run the container that will connect to that network with ``docker run <OPTIONS> --network <NETWORK_NAME>``.
